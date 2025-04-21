@@ -1,10 +1,10 @@
 package org.example.burtyyouthapi.policy.spec;
 
+import jakarta.persistence.criteria.Predicate;
 import org.example.burtyyouthapi.model.entity.Policy;
 import org.example.burtyyouthapi.policy.dto.PolicySearchCriteria;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 
