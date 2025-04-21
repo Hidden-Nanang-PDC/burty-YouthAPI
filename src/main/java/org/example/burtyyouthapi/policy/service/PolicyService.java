@@ -37,25 +37,15 @@ public class PolicyService {
         );
         Specification<Policy> spec = PolicySpecification.withFilters(criteria);
         Page<Policy> page = repository.findAll(spec, pageable);
+
+        // Entity → DTO 변환 시 plcyNo를 첫 번째 인자로 포함
         return page.map(this::toDto);
-    }
-
-    /**
-     * 단일 정책 ID로 정책 상세 정보를 조회합니다.
-     *
-     * @param plcyNo 정책 번호
-     * @return 해당 정책의 상세 DTO
-     * @throws NoSuchElementException 존재하지 않을 경우
-     */
-    public PolicyDetailDto getPolicyDetail(String plcyNo) {
-        Policy policy = repository.findById(plcyNo)
-                .orElseThrow(() -> new NoSuchElementException("정책을 찾을 수 없습니다: " + plcyNo));
-
-        return toDetailDto(policy);
     }
 
     private PolicyDto toDto(Policy policy) {
         return new PolicyDto(
+                // plcyNo 추가
+                policy.getPlcyNo(),
                 policy.getMclsfNm(),
                 policy.getPlcyNm(),
                 policy.getPlcyExplnCn(),
@@ -74,6 +64,15 @@ public class PolicyService {
                 policy.getMrgSttsCd(),
                 policy.getPvsnInstGroupCd()
         );
+    }
+
+    /**
+     * 단일 정책 ID로 정책 상세 정보를 조회합니다.
+     */
+    public PolicyDetailDto getPolicyDetail(String plcyNo) {
+        Policy policy = repository.findById(plcyNo)
+                .orElseThrow(() -> new NoSuchElementException("정책을 찾을 수 없습니다: " + plcyNo));
+        return toDetailDto(policy);
     }
 
     private PolicyDetailDto toDetailDto(Policy policy) {
