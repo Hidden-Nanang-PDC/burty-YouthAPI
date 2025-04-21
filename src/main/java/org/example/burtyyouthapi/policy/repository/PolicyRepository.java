@@ -5,10 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
- * Policy 엔티티에 대한 CRUD 및 동적 쿼리 실행을 지원하는 Repository
- * - JpaSpecificationExecutor를 통해 Specification 기반 검색 가능
+ * Policy 엔티티에 대한 CRUD 및 Specification 기반 검색 지원
  */
-public interface PolicyRepository extends
-        JpaRepository<Policy, String>,
+public interface PolicyRepository
+        extends JpaRepository<Policy, String>,
         JpaSpecificationExecutor<Policy> {
 }
