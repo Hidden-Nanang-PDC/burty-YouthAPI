@@ -1,7 +1,7 @@
 package org.example.burtyyouthapi.center.repository;
 
 import org.example.burtyyouthapi.center.dto.RegionDto;
-import org.example.youthcenterapi.center.entity.YouthCenter;
+import org.example.burtyyouthapi.center.entity.YouthCenter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
