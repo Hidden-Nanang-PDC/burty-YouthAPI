@@ -6,6 +6,7 @@ import org.example.burtyyouthapi.policy.dto.PolicyDetailDto;
 import org.example.burtyyouthapi.policy.dto.PolicyDto;
 import org.example.burtyyouthapi.policy.dto.PolicySearchCriteria;
 import org.example.burtyyouthapi.policy.service.PolicyService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class PolicyController {
             description = "전공, 취업상태 등 다양한 필터 조건으로 정책 목록을 페이징 조회합니다."
     )
     @GetMapping("/search")
-    public Page<PolicyDto> searchPolicies(PolicySearchCriteria criteria) {
+    public Page<PolicyDto> searchPolicies(@ParameterObject PolicySearchCriteria criteria) {
         return service.searchPolicies(criteria);
     }
 
