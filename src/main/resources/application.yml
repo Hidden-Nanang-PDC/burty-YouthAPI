@@ -10,5 +10,13 @@ spring:
         show_sql: true
         format_sql: true
 
+springdoc:
+  swagger-ui:
+    path: /docs               # 브라우저에서 /docs 로 접속하면 Swagger UI 열림
+    url: /v3/api-docs.yaml    # UI에서 불러올 OpenAPI 스펙 파일 경로 (선택)
+  api-docs:
+    path: /v3/api-docs        # OpenAPI JSON/YAML 문서가 이 경로에 노출
+
+
 server:
   port: ${PORT:8080}
