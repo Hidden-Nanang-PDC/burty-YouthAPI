@@ -1,19 +1,16 @@
 package org.example.burtyyouthapi.content.service;
 
 import org.example.burtyyouthapi.content.dto.ContentDto;
+import org.example.burtyyouthapi.content.dto.ContentFileDto;
 import org.example.burtyyouthapi.content.dto.ContentSearchCriteria;
 import org.example.burtyyouthapi.content.entity.YouthContent;
 import org.example.burtyyouthapi.content.repository.YouthContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-/**
- * 청년 콘텐츠 검색 비즈니스 로직
- */
+import java.util.NoSuchElementException;
+
 @Service
 public class ContentService {
 
@@ -25,7 +22,7 @@ public class ContentService {
     }
 
     /**
-     * 페이징 조건에 맞춰 콘텐츠 목록 반환
+     * 페이징 조건에 맞춰 콘텐츠 목록 반환 (파일 제외)
      */
     public Page<ContentDto> searchContents(ContentSearchCriteria criteria) {
         Pageable pageable = PageRequest.of(
@@ -38,14 +35,22 @@ public class ContentService {
     }
 
     /**
-     * Entity → DTO 변환
+     * 특정 콘텐츠의 첨부파일(Base64)만 반환
+     * @param pstSn 게시물 일련번호
+     * @throws NoSuchElementException 해당 항목이 없으면 예외 발생
      */
+    public ContentFileDto getContentFile(String pstSn) {
+        YouthContent entity = repository.findById(pstSn)
+                .orElseThrow(() -> new NoSuchElementException("Content not found: " + pstSn));
+        return new ContentFileDto(entity.getPstSn(), entity.getAtchFile());
+    }
+
+    // 기존 toDto 변환 (파일 제외)
     private ContentDto toDto(YouthContent c) {
         return new ContentDto(
                 c.getPstSn(),
                 c.getPstSeNm(),
                 c.getPstTtl(),
-                c.getAtchFile(),
                 c.getPstWholCn(),
                 c.getFrstRegDt(),
                 c.getLastMdfrNm()
