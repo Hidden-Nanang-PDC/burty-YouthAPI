@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 청년 콘텐츠 목록 반환용 DTO
+ * 청년 콘텐츠 목록 반환용 DTO (파일 제외)
  */
 @Data
 @NoArgsConstructor
@@ -17,8 +17,6 @@ public class ContentDto {
     private String pstSeNm;
     /** 게시물 제목 */
     private String pstTtl;
-    /** 첨부 파일 (Base64) */
-    private String atchFile;
     /** 게시물 전체 내용 */
     private String pstWholCn;
     /** 최초 등록 일시 */
