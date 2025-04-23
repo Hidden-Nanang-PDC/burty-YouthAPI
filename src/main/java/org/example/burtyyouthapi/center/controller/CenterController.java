@@ -33,7 +33,9 @@ public class CenterController {
      */
     @Operation(
             summary = "센터 목록 검색",
-            description = "시도 및 시군구 조건으로 센터 목록을 페이징 조회합니다."
+            description = "시도 및 시군구 조건으로 센터 목록을 페이징 조회합니다.<br/>"
+                        + "stdgCtpvCd : 시도 코드 입력<br/>"
+                        + "stdgSggCd : 시군구 코드 입력"
     )
     @GetMapping("/search")
     public Page<CenterDto> searchCenters(@ParameterObject CenterSearchCriteria criteria) {

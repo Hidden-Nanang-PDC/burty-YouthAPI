@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
  * 정책 검색 및 조회 API 컨트롤러
  * - /api/policies/search, /api/policies/{plcyNo} 엔드포인트 제공
  */
-@Tag(name = "Policies", description = "정책 검색 및 상세 조회 API")
+@Tag(name = "Policy", description = "정책 검색 및 상세 조회 API")
 @RestController
 @RequestMapping("/api/policies")
 public class PolicyController {
@@ -37,7 +37,9 @@ public class PolicyController {
      */
     @Operation(
             summary = "정책 목록 검색",
-            description = "전공, 취업상태 등 다양한 필터 조건으로 정책 목록을 페이징 조회합니다."
+            description = "전공, 취업상태 등 다양한 필터 조건으로 정책 목록을 페이징 조회합니다.<br/>"
+            + "ex) Policy-code에서 [전공조건코드]로 공학계열인 0011005값을 얻어와서 plcyMajorCd에 넣어주고 조회하면 공학계열에 관련된 정책이 조회됨.<br/>"
+            + "👉 <a href='https://github.com/Hidden-Nanang-PDC/burty-YouthAPI/blob/main/PolicyCodeAPI_PolicyAPI_Matching.md' target='_blank'>더 자세한 카테고리 코드와 정책 목록 파라미터 매칭 정보 </a>"
     )
     @GetMapping("/search")
     public Page<PolicyDto> searchPolicies(@ParameterObject PolicySearchCriteria criteria) {
