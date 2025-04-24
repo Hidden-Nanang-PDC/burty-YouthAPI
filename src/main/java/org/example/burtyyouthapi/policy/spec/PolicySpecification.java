@@ -14,36 +14,40 @@ import java.util.List;
  */
 public class PolicySpecification {
 
-    public static Specification<Policy> withFilters(PolicySearchCriteria criteria) {
+    public static Specification<Policy> byCriteria(PolicySearchCriteria c) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (criteria.getPlcyMajorCd() != null) {
-                predicates.add(cb.equal(root.get("plcyMajorCd"), criteria.getPlcyMajorCd()));
+            if (c.getPlcyMajorCd() != null && !c.getPlcyMajorCd().isEmpty()) {
+                predicates.add(cb.equal(root.get("plcyMajorCd"), c.getPlcyMajorCd()));
             }
-            if (criteria.getJobCd() != null) {
-                predicates.add(cb.equal(root.get("jobCd"), criteria.getJobCd()));
+            if (c.getJobCd() != null && !c.getJobCd().isEmpty()) {
+                predicates.add(cb.equal(root.get("jobCd"), c.getJobCd()));
             }
-            if (criteria.getSBizCd() != null) {
-                predicates.add(cb.equal(root.get("sBizCd"), criteria.getSBizCd()));
+            if (c.getSBizCd() != null && !c.getSBizCd().isEmpty()) {
+                predicates.add(cb.equal(root.get("sBizCd"), c.getSBizCd()));
             }
-            if (criteria.getPlcyPvsnMthdCd() != null) {
-                predicates.add(cb.equal(root.get("plcyPvsnMthdCd"), criteria.getPlcyPvsnMthdCd()));
+            if (c.getPlcyPvsnMthdCd() != null && !c.getPlcyPvsnMthdCd().isEmpty()) {
+                predicates.add(cb.equal(root.get("plcyPvsnMthdCd"), c.getPlcyPvsnMthdCd()));
             }
-            if (criteria.getEarnCndSeCd() != null) {
-                predicates.add(cb.equal(root.get("earnCndSeCd"), criteria.getEarnCndSeCd()));
+            if (c.getEarnCndSeCd() != null && !c.getEarnCndSeCd().isEmpty()) {
+                predicates.add(cb.equal(root.get("earnCndSeCd"), c.getEarnCndSeCd()));
             }
-            if (criteria.getPlcyAprvSttsCd() != null) {
-                predicates.add(cb.equal(root.get("plcyAprvSttsCd"), criteria.getPlcyAprvSttsCd()));
+            if (c.getPlcyAprvSttsCd() != null && !c.getPlcyAprvSttsCd().isEmpty()) {
+                predicates.add(cb.equal(root.get("plcyAprvSttsCd"), c.getPlcyAprvSttsCd()));
             }
-            if (criteria.getSchoolCd() != null) {
-                predicates.add(cb.equal(root.get("schoolCd"), criteria.getSchoolCd()));
+            if (c.getSchoolCd() != null && !c.getSchoolCd().isEmpty()) {
+                predicates.add(cb.equal(root.get("schoolCd"), c.getSchoolCd()));
             }
-            if (criteria.getPvsnInstGroupCd() != null) {
-                predicates.add(cb.equal(root.get("pvsnInstGroupCd"), criteria.getPvsnInstGroupCd()));
+            if (c.getPvsnInstGroupCd() != null && !c.getPvsnInstGroupCd().isEmpty()) {
+                predicates.add(cb.equal(root.get("pvsnInstGroupCd"), c.getPvsnInstGroupCd()));
             }
-            if (criteria.getMrgSttsCd() != null) {
-                predicates.add(cb.equal(root.get("mrgSttsCd"), criteria.getMrgSttsCd()));
+            if (c.getMrgSttsCd() != null && !c.getMrgSttsCd().isEmpty()) {
+                predicates.add(cb.equal(root.get("mrgSttsCd"), c.getMrgSttsCd()));
+            }
+            // 새로 추가된 지역 필터: zipCd
+            if (c.getZipCd() != null && !c.getZipCd().isEmpty()) {
+                predicates.add(cb.equal(root.get("zipCd"), c.getZipCd()));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));
