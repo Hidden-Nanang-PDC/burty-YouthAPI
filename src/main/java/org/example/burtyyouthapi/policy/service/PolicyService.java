@@ -28,6 +28,7 @@ public class PolicyService {
 
     /**
      * 검색 조건에 따라 페이징된 정책 목록을 반환합니다.
+     * 이제 zipCd(거주지역코드) 필터링과 DTO에 zipCd 반환을 지원합니다.
      */
     public Page<PolicyDto> searchPolicies(PolicySearchCriteria criteria) {
         Pageable pageable = PageRequest.of(
@@ -35,35 +36,11 @@ public class PolicyService {
                 criteria.getSize(),
                 Sort.by(Sort.Direction.DESC, "frstRegDt")
         );
-        Specification<Policy> spec = PolicySpecification.withFilters(criteria);
+
+        Specification<Policy> spec = PolicySpecification.byCriteria(criteria);
         Page<Policy> page = repository.findAll(spec, pageable);
 
-        // Entity → DTO 변환 시 plcyNo를 첫 번째 인자로 포함
         return page.map(this::toDto);
-    }
-
-    private PolicyDto toDto(Policy policy) {
-        return new PolicyDto(
-                // plcyNo 추가
-                policy.getPlcyNo(),
-                policy.getMclsfNm(),
-                policy.getPlcyNm(),
-                policy.getPlcyExplnCn(),
-                policy.getLclsfNm(),
-                policy.getSprvsnInstCdNm(),
-                policy.getSprtTrgtMinAge(),
-                policy.getSprtTrgtMaxAge(),
-                policy.getAplyYmd(),
-                policy.getPlcyMajorCd(),
-                policy.getJobCd(),
-                policy.getSchoolCd(),
-                policy.getSBizCd(),
-                policy.getPlcyPvsnMthdCd(),
-                policy.getPlcyAprvSttsCd(),
-                policy.getEarnCndSeCd(),
-                policy.getMrgSttsCd(),
-                policy.getPvsnInstGroupCd()
-        );
     }
 
     /**
@@ -75,6 +52,36 @@ public class PolicyService {
         return toDetailDto(policy);
     }
 
+    /**
+     * Entity → 목록용 DTO 변환
+     */
+    private PolicyDto toDto(Policy policy) {
+        return new PolicyDto(
+                policy.getPlcyNo(),               // 정책번호
+                policy.getMclsfNm(),              // 정책중분류명
+                policy.getPlcyNm(),               // 정책명
+                policy.getPlcyExplnCn(),          // 정책설명
+                policy.getLclsfNm(),              // 정책대분류명
+                policy.getSprvsnInstCdNm(),       // 주관기관코드명
+                policy.getSprtTrgtMinAge(),       // 지원대상최소연령
+                policy.getSprtTrgtMaxAge(),       // 지원대상최대연령
+                policy.getAplyYmd(),              // 신청기간
+                policy.getPlcyMajorCd(),          // 전공조건코드
+                policy.getJobCd(),                // 취업상태코드
+                policy.getSchoolCd(),             // 자격학력코드
+                policy.getSBizCd(),               // 특수분야코드
+                policy.getPlcyPvsnMthdCd(),       // 정책제공방법코드
+                policy.getPlcyAprvSttsCd(),       // 정책승인상태코드
+                policy.getEarnCndSeCd(),          // 소득조건구분코드
+                policy.getMrgSttsCd(),            // 결혼상태코드
+                policy.getPvsnInstGroupCd(),      // 제공기관그룹코드
+                policy.getZipCd()                 // 거주지역코드 (새로 추가)
+        );
+    }
+
+    /**
+     * Entity → 상세용 DTO 변환
+     */
     private PolicyDetailDto toDetailDto(Policy policy) {
         return new PolicyDetailDto(
                 policy.getPlcyNm(),

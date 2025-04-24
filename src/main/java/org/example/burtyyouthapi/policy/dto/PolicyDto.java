@@ -2,6 +2,7 @@ package org.example.burtyyouthapi.policy.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 정책 검색 결과 리스트용 DTO (A안)
@@ -9,6 +10,7 @@ import lombok.Data;
  * - 상세 조회를 위한 정책 ID(plcyNo) 필드 추가
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class PolicyDto {
     /** 정책번호 (상세조회 ID) */
@@ -57,4 +59,7 @@ public class PolicyDto {
     private String mrgSttsCd;
     /** 제공기관그룹코드 (comCd) */
     private String pvsnInstGroupCd;
+
+    /** 거주지역코드 (zipCd) 추가 */
+    private String zipCd;
 }
