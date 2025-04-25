@@ -20,9 +20,9 @@ public class PolicySearchCriteria {
     private String pvsnInstGroupCd;// 제공기관그룹코드
     private String mrgSttsCd;     // 결혼상태코드
 
-    /** 새로 추가된 필터: 정책 거주지역 코드 */
+    /** 새로 추가된 필터: 거주지역코드(zipCd) */
     private String zipCd;
 
-    private int page = 0;
-    private int size = 10;
+    private int page = 0;             // 0부터 시작하는 페이지 번호
+    private int size = 10;            // 한 페이지당 결과 수
 }

@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Policy 검색에 사용될 동적 WHERE 절을 Specification 형태로 구현
- * - PolicySearchCriteria의 각 필드를 확인하여 Predicate를 생성
+ * Policy 검색용 동적 Specification 클래스
  */
 public class PolicySpecification {
 
+    /**
+     * 기존 필터 조건을 모두 적용하는 Specification
+     */
     public static Specification<Policy> byCriteria(PolicySearchCriteria c) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -45,12 +47,29 @@ public class PolicySpecification {
             if (c.getMrgSttsCd() != null && !c.getMrgSttsCd().isEmpty()) {
                 predicates.add(cb.equal(root.get("mrgSttsCd"), c.getMrgSttsCd()));
             }
-            // 새로 추가된 지역 필터: zipCd
+
+            // zipCd 필터는 하나만!
             if (c.getZipCd() != null && !c.getZipCd().isEmpty()) {
                 predicates.add(cb.equal(root.get("zipCd"), c.getZipCd()));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));
+        };
+    }
+
+    /**
+     * 지역 기반 필터만 적용하는 Specification
+     * - 시도코드(province)와 시군구코드(district)를 합쳐서 fullCode
+     * - provinceOnly = province + "000"
+     * - true if zipCd == fullCode OR zipCd == provinceOnly
+     */
+    public static Specification<Policy> byRegion(String province, String district) {
+        return (root, query, cb) -> {
+            String fullCode = province + district;
+            String provinceOnly = province + "000";
+            Predicate pFull = cb.equal(root.get("zipCd"), fullCode);
+            Predicate pProvince = cb.equal(root.get("zipCd"), provinceOnly);
+            return cb.or(pFull, pProvince);
         };
     }
 }
