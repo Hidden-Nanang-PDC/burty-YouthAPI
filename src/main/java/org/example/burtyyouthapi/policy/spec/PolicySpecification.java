@@ -21,34 +21,32 @@ public class PolicySpecification {
             List<Predicate> predicates = new ArrayList<>();
 
             if (c.getPlcyMajorCd() != null && !c.getPlcyMajorCd().isEmpty()) {
-                predicates.add(cb.equal(root.get("plcyMajorCd"), c.getPlcyMajorCd()));
+                predicates.add(root.get("plcyMajorCd").in(c.getPlcyMajorCd()));
             }
             if (c.getJobCd() != null && !c.getJobCd().isEmpty()) {
-                predicates.add(cb.equal(root.get("jobCd"), c.getJobCd()));
+                predicates.add(root.get("jobCd").in(c.getJobCd()));
             }
             if (c.getSBizCd() != null && !c.getSBizCd().isEmpty()) {
-                predicates.add(cb.equal(root.get("sBizCd"), c.getSBizCd()));
+                predicates.add(root.get("sBizCd").in(c.getSBizCd()));
             }
             if (c.getPlcyPvsnMthdCd() != null && !c.getPlcyPvsnMthdCd().isEmpty()) {
-                predicates.add(cb.equal(root.get("plcyPvsnMthdCd"), c.getPlcyPvsnMthdCd()));
+                predicates.add(root.get("plcyPvsnMthdCd").in(c.getPlcyPvsnMthdCd()));
             }
             if (c.getEarnCndSeCd() != null && !c.getEarnCndSeCd().isEmpty()) {
-                predicates.add(cb.equal(root.get("earnCndSeCd"), c.getEarnCndSeCd()));
+                predicates.add(root.get("earnCndSeCd").in(c.getEarnCndSeCd()));
             }
             if (c.getPlcyAprvSttsCd() != null && !c.getPlcyAprvSttsCd().isEmpty()) {
-                predicates.add(cb.equal(root.get("plcyAprvSttsCd"), c.getPlcyAprvSttsCd()));
+                predicates.add(root.get("plcyAprvSttsCd").in(c.getPlcyAprvSttsCd()));
             }
             if (c.getSchoolCd() != null && !c.getSchoolCd().isEmpty()) {
-                predicates.add(cb.equal(root.get("schoolCd"), c.getSchoolCd()));
+                predicates.add(root.get("schoolCd").in(c.getSchoolCd()));
             }
             if (c.getPvsnInstGroupCd() != null && !c.getPvsnInstGroupCd().isEmpty()) {
-                predicates.add(cb.equal(root.get("pvsnInstGroupCd"), c.getPvsnInstGroupCd()));
+                predicates.add(root.get("pvsnInstGroupCd").in(c.getPvsnInstGroupCd()));
             }
             if (c.getMrgSttsCd() != null && !c.getMrgSttsCd().isEmpty()) {
-                predicates.add(cb.equal(root.get("mrgSttsCd"), c.getMrgSttsCd()));
+                predicates.add(root.get("mrgSttsCd").in(c.getMrgSttsCd()));
             }
-
-            // zipCd 필터는 하나만!
             if (c.getZipCd() != null && !c.getZipCd().isEmpty()) {
                 predicates.add(cb.equal(root.get("zipCd"), c.getZipCd()));
             }
