@@ -2,12 +2,15 @@ package org.example.burtyyouthapi.policy.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 정책 상세보기용 DTO
  * - 상세 페이지에서 보여줄 모든 정보 필드를 담습니다.
+ * - 여기에 지역코드(zipCd)를 추가했습니다.
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class PolicyDetailDto {
     /** 정책명 */
@@ -63,4 +66,7 @@ public class PolicyDetailDto {
 
     /** 최종 수정 일시 (YYYY-MM-DD HH:mm:ss) */
     private String lastMdfcnDt;
+
+    /** 정책 거주지역 코드 (zipCd) */
+    private String zipCd;
 }

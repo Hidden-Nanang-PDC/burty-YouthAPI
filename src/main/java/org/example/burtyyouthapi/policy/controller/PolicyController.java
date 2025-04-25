@@ -46,6 +46,17 @@ public class PolicyController {
         return service.searchPolicies(criteria);
     }
 
+    @Operation(summary = "지역 기반 정책 목록", description = "시도(ctpvCd)와 시군구(sggCd)를 입력받아 해당 지역(및 상위 시도) 정책을 페이징 조회합니다.")
+    @GetMapping("/region")
+    public Page<PolicyDetailDto> searchByRegion(
+            @RequestParam String ctpvCd,
+            @RequestParam String sggCd,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        return service.searchByRegion(ctpvCd, sggCd, page, size);
+    }
+
     /**
      * GET /api/policies/{plcyNo}
      * 단일 정책 번호로 상세 정보를 조회하여 반환합니다.

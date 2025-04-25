@@ -42,6 +42,19 @@ public class PolicyService {
         return page.map(this::toDto);
     }
 
+    /**
+     * 지역 코드 기반으로 페이징된 정책 목록을 반환합니다.
+     * @param province 시도코드
+     * @param district 시군구코드
+     */
+    public Page<PolicyDetailDto> searchByRegion(String province, String district, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "frstRegDt"));
+        Specification<Policy> spec = PolicySpecification.byRegion(province, district);
+
+        return repository.findAll(spec, pageable)
+                .map(this::toDetailDto);
+    }
+
     private PolicyDto toDto(Policy policy) {
         return new PolicyDto(
                 // plcyNo 추가
@@ -76,6 +89,7 @@ public class PolicyService {
     }
 
     private PolicyDetailDto toDetailDto(Policy policy) {
+        // 기존 detail 매핑에 zipCd 추가
         return new PolicyDetailDto(
                 policy.getPlcyNm(),
                 policy.getPlcyKywdNm(),
@@ -94,7 +108,8 @@ public class PolicyService {
                 policy.getAddAplyQlfcCndCn(),
                 policy.getAplyYmd(),
                 policy.getFrstRegDt(),
-                policy.getLastMdfcnDt()
+                policy.getLastMdfcnDt(),
+                policy.getZipCd()           // 추가된 지역코드
         );
     }
 }
